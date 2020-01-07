@@ -1,14 +1,38 @@
 # mv1000-arch
-arch linux for the gl inet mv1000
+###### arch linux for the gl inet mv1000
+
+https://1drv.ms/u/s!AmcRnlYyfM8JjdAztzr_EoohuAmJyw?e=yyadce
 
 username/password: root
 
 192.168.8.1 is configured on the lan ports, and they are configured as a bridge, wan is configured for dhcp.
 
+From openwrt or another machine running linux, extract the tar.gz to 
+an sd card, formatted with ext4, and one or more partitions.
+
+
+tar -zxf /tmp/mv1000-arch.tar.gz -C /mnt/mmcblk1p1/
+
+If you are currently booting debian then no changes need to be made to uboot, shutdown and insert your new card.
+If you are in openwrt, you will need to make sure your uboot is updated first!
+Instructions are on the mv1000 ubuntu github for that,
+Once thats done, you can run:
+
+fw_setenv image_part 1
+fw_setenv image_dir /boot/
+fw_setenv fdt_name armada-gl-mv1000-ubuntu.dtb
+fw_setenv args_sd setenv bootargs root=/dev/mmcblk1p1 rw rootwait
+fw_setenv bootscript run boot_sd
+reboot
+
+192.168.8.1 is configured on the lan ports, and they are configured as a bridge, wan is configured for dhcp. You should have access after about 25 seconds
+
+If you fat finger something you
 Lots of todo's here:
-Add usb3 device to kernel
-add led driver from openwrt kernel/set led triggers
-add dtb/kernel config for arches expressobin kernel
+1. Add usb3 device to kernel
+2. add led driver from openwrt kernel/set led triggers
+3. add dtb/kernel config for arches expressobin kernel
+
 
 Bootlog:
 Welcome to Arch Linux ARM!

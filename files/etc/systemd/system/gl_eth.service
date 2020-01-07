@@ -1,0 +1,12 @@
+[Unit]
+Description=MV1000 set interfaces to up
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=no
+User=root
+ExecStart=/usr/bin/gl_eth.sh
+
+[Install]
+WantedBy=multi-user.target
